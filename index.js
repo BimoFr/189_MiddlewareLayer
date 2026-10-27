@@ -47,7 +47,7 @@ function successResponse(res, message, data, status = 200) {
   });
 }
 
-function errorResponse(res, message, data, status, details = null) {
+function errorResponse(res, message, status, details = null) {
   return res.status(status).json({
     success: false,
     message,
@@ -188,4 +188,8 @@ app.use((err, req, res, next) => {
   }
 
   return errorResponse(res, "Terjadi kesalahan pada server", 500);
+});
+
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`)
 });
