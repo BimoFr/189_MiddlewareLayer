@@ -87,7 +87,30 @@ function validateBody(schema) {
         })),
       );
     }
-    req.body = value
-    next()
+    req.body = value;
+    next();
+  };
+}
+
+// MIDDLEWARE VALIDATION ID
+
+function validateIdParam(schema) {
+  return (req, res, next) => {
+    const { error, value } = schema.validate(req.params);
+
+    if (error) {
+      return errorResponse(
+        res,
+        "Parameter tidak valid",
+        400,
+        error.details.map((item) => ({
+          field: item.path.join("."),
+          message: item.message,
+        })),
+      );
+    }
+
+    req.params = value;
+    next();
   };
 }
