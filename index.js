@@ -63,31 +63,31 @@ const biodataSchema = joi.object({
   nama: joi.string().trim().min(2).max(100).required(),
   nim: joi.string().trim().min(5).max(20).required(),
   kelas: joi.string().trim().min(1).max(20).required(),
-})
+});
 
 const idSchema = joi.object({
   id: joi.number().integer().positive().required(),
-})
+});
 
-function validateBody(schema){
-    return (req, res, next) => {
-        const { error, value } = schema.validate(req.body, {
-            abortEarly: false,
-            convert: true,
-            allowUnknown: false,
-        })
-        if (error) {
-            return errorResponse(
-                res,
-                 'Validasi  Input Gagal',
-                 400,
-                 error.details.map(item => ({
-                    field: item.path.join('.'),
-                    message: item.message,
-                 }))
-            )
-        }
-        req.body = value
-        next()
+function validateBody(schema) {
+  return (req, res, next) => {
+    const { error, value } = schema.validate(req.body, {
+      abortEarly: false,
+      convert: true,
+      allowUnknown: false,
+    });
+    if (error) {
+      return errorResponse(
+        res,
+        "Validasi  Input Gagal",
+        400,
+        error.details.map((item) => ({
+          field: item.path.join("."),
+          message: item.message,
+        })),
+      );
     }
+    req.body = value;
+    next();
+  };
 }
