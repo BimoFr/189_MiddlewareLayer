@@ -87,7 +87,7 @@ function validateBody(schema) {
         })),
       );
     }
-    req.body = value;
-    next();
+    req.body = value
+    next()
   };
 }
